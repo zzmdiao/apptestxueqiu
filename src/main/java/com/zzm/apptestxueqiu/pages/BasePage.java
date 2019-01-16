@@ -1,41 +1,38 @@
 package com.zzm.apptestxueqiu.pages;
 
-import com.zzm.apptestxueqiu.drivers.Driver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
-@Component
 public class BasePage {
-    static WebElement find(By locator){
-        try{
-            return Driver.getCurrentDriver().findElement(locator);
-        }catch (Exception e){
-            Driver.getCurrentDriver().findElement(text("下次再说")).click();
-            return Driver.getCurrentDriver().findElement(locator);
-        }
-    }
-    static List<AndroidElement> finds(By locator) {
+
+    protected AppiumDriver<WebElement> driver;
+
+     WebElement find(By locator) {
         try {
-            return Driver.getCurrentDriver().findElements(locator);
-        }catch (Exception e){
-            Driver.getCurrentDriver().findElement(text("下次再说")).click();
-            return Driver.getCurrentDriver().findElements(locator);
+            return driver.findElement(locator);
+        } catch (Exception e) {
+            driver.findElement(text("下次再说")).click();
+            return driver.findElement(locator);
         }
     }
-    static By locate(String locator){
-        if(locator.matches("/.*")){
-            return By.xpath(locator);
-        }else{
-            return By.id(locator);
+
+    List<WebElement> finds(By locator) {
+        try {
+            return driver.findElements(locator);
+        } catch (Exception e) {
+            driver.findElement(text("下次再说")).click();
+            return driver.findElements(locator);
         }
     }
-    static By text(String content){
-        return By.xpath("//*[@text='"+ content + "']");
+
+    By text(String content) {
+        return By.xpath("//*[@text='" + content + "']");
     }
 
-
+    //
+    public void setDriver(AppiumDriver<WebElement> driver) {
+        this.driver = driver;
+    }
 }

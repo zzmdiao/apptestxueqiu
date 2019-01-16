@@ -1,6 +1,5 @@
 package com.zzm.apptestxueqiu.pages;
 
-import com.zzm.apptestxueqiu.drivers.Driver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 
 public class FreeSelectPage extends BasePage {
 
-
     //点击搜索按钮添加自选记录
     public void addZixuan(String keyword, String name) {
         find(By.id("action_create_cube")).click();
@@ -21,7 +19,6 @@ public class FreeSelectPage extends BasePage {
         if (firstElement.getAttribute("resourceId").equals("com.xueqiu.android:id/follow_btn") && getAllSelectList().get(0).equals(name)) {
             firstElement.click();
         }
-
 
     }
 
@@ -33,7 +30,7 @@ public class FreeSelectPage extends BasePage {
 
     //从自选列表中移除test=name的记录
     public void removeZixuan(String name) {
-        TouchAction action = new TouchAction(Driver.getCurrentDriver());
+        TouchAction action = new TouchAction(driver);
         if (getAllZixuanList().get(0).equals(name)) {
             action.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(find(text(name)))).withDuration(Duration.ofSeconds(1)));
             action.perform();

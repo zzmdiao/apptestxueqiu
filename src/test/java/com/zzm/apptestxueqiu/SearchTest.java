@@ -1,27 +1,37 @@
 package com.zzm.apptestxueqiu;
 
+import com.zzm.apptestxueqiu.drivers.DriverManger;
 import com.zzm.apptestxueqiu.pages.MainPage;
 import com.zzm.apptestxueqiu.pages.SearchPage;
-import org.junit.jupiter.api.AfterAll;
+import com.zzm.apptestxueqiu.pages.PageFactory;
+import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openqa.selenium.WebElement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchTest {
-    @Autowired
-    static MainPage mainPage;
-    @Autowired
-    static SearchPage searchPage;
+    private static MainPage mainPage;
+    private static SearchPage searchPage;
+    private static AndroidDriver<WebElement> driver;
 
     @BeforeAll
-    static void beforeAll(){
-        mainPage= MainPage.start();
+    static void init() {
+        //1.create driver
+        driver = DriverManger.createDriver();
+
+        //2.
+        mainPage = PageFactory.createMainPage(driver);
+        searchPage = PageFactory.createSearchPage(driver);
+
         mainPage.cancelUpgrade();
-        searchPage=mainPage.gotoSearch();
+        mainPage.gotoZixuan();
+
     }
+
+
     @ParameterizedTest
     @CsvSource({
             "pdd, 拼多多",
@@ -32,8 +42,5 @@ public class SearchTest {
         String content=searchPage.search(keyword).getAll().get(0);
         assertEquals(content, name);
     }
-    @AfterAll
-    public void afterAll() {
-        mainPage.quit();
-    }
+
 }

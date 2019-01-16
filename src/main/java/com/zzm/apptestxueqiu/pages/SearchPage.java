@@ -1,6 +1,5 @@
 package com.zzm.apptestxueqiu.pages;
 
-import com.zzm.apptestxueqiu.drivers.Driver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -21,7 +20,7 @@ public class SearchPage extends BasePage{
 
     public ArrayList<String> getAll(){
         ArrayList<String> array=new ArrayList<String>();
-        for(WebElement e: Driver.getCurrentDriver().findElements(By.id("stockName"))){
+        for(WebElement e: driver.findElements(By.id("stockName"))){
             array.add(e.getText());
         }
         return array;
