@@ -8,6 +8,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebElement;
 
@@ -37,6 +38,16 @@ public class FreeSelectTest {
     })
     @DisplayName("添加自选、删除自选")
     public void freeSelectTest(String keyword, String name) {
+        freeSelectPage.addZixuan(keyword, name);
+        freeSelectPage.cancel();
+        freeSelectPage.removeZixuan(name);
+        assertNotEquals(freeSelectPage.getAllZixuanList().get(0), name);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/data/select.csv")
+    @DisplayName("添加自选、删除自选(csv模式)")
+    public void freeSelectTest2(String keyword, String name) {
         freeSelectPage.addZixuan(keyword, name);
         freeSelectPage.cancel();
         freeSelectPage.removeZixuan(name);
