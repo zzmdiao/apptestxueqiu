@@ -8,3 +8,11 @@ appium:
     appPackage: com.xueqiu.android
     appActivity: .view.WelcomeActivityAlias
     autoGrantPermissions: true
+
+data:
+  selectinput:
+    - suning
+    - liantong
+  selectresult:
+    - 苏宁易购
+    - 中国联通
